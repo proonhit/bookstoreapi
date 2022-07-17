@@ -1,7 +1,9 @@
 ﻿using BookStore.Domain.Interfaces;
+using BookStore.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace BookStore.Domain.Services
 {
@@ -16,5 +18,10 @@ namespace BookStore.Domain.Services
         {
             _userRepository?.Dispose();
         }
+        public async Task<IEnumerable<User>> GetAll()
+        {
+            return await _userRepository.GetAll();
+        }
+
     }
 }
