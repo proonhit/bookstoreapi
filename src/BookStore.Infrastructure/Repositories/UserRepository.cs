@@ -4,6 +4,7 @@ using BookStore.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,6 +19,12 @@ namespace BookStore.Infrastructure.Repositories
             return await Db.Users
                 .AsNoTracking()
                 .ToListAsync();
+        }
+        public async Task<User> GetUser(string userName, string password)
+        {
+            return await Db.Users.AsNoTracking()
+                .Where(u => u.Username.Equals(userName) && u.Password.Equals(password) && u.IsActive == true)
+                .FirstOrDefaultAsync();
         }
     }
 }
