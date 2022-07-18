@@ -9,5 +9,6 @@ namespace BookStore.Domain.Interfaces
     public interface IUserRepository : IRepository<User>
     {
         new Task<List<User>> GetAll();
+        Task<User> GetUser(string userName, string password);
     }
 }
