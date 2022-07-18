@@ -2,6 +2,7 @@
 using BookStore.API.Dtos;
 using BookStore.API.Dtos.User;
 using BookStore.Domain.Interfaces;
+using BookStore.Domain.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -29,11 +30,25 @@ namespace BookStore.API.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> Register(UserDto userDto)
+        {
+            if (!ModelState.IsValid) return BadRequest();
+            var user = _mapper.Map<User>(userDto);
+            var result = await _userService.Register(user);
+
+            if (result == false) return BadRequest();
+
+            return Ok(result);
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Login(UserLoginDto userLoginDto)
         {
             if (!ModelState.IsValid) return BadRequest();
-          
-            var result = await _userService.GetUser(userLoginDto.UserName,userLoginDto.Password);
+
+            var result = await _userService.GetUser(userLoginDto.UserName, userLoginDto.Password);
 
             if (result == null) return BadRequest();
 
