@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BookStore.API.Dtos;
+using BookStore.API.Dtos.User;
 using BookStore.Domain.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,6 +24,20 @@ namespace BookStore.API.Controllers
             _mapper = mapper;
             _userService = userService;
             _configuration = configuration;
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> Login(UserLoginDto userLoginDto)
+        {
+            if (!ModelState.IsValid) return BadRequest();
+          
+            var result = await _userService.GetUser(userLoginDto.UserName,userLoginDto.Password);
+
+            if (result == null) return BadRequest();
+
+            return Ok(result);
         }
 
         /// <summary>

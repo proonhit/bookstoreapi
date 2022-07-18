@@ -9,5 +9,6 @@ namespace BookStore.Domain.Interfaces
     public interface IUserService:IDisposable
     {
         Task<IEnumerable<User>> GetAll();
+        Task<string> GetUser(string userName, string password);
     }
 }
