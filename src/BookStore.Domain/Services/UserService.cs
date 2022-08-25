@@ -2,6 +2,7 @@
 using BookStore.Domain.Interfaces;
 using BookStore.Domain.Models;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.UserSecrets;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using BookStore.Domain.Helper;
 
 namespace BookStore.Domain.Services
 {
@@ -54,11 +56,12 @@ namespace BookStore.Domain.Services
 
         public async Task<bool> Register(User user)
         {
-            if(user is null)
+            if (user is null)
             {
                 return false;
             }
-            var newUser = new User{ 
+            var newUser = new User
+            {
                 Username = user.Username,
                 Password = HashHelper.SHA256(user.Password),
                 Email = user.Email,

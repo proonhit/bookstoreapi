@@ -11,5 +11,6 @@ namespace BookStore.Domain.Interfaces
         Task<IEnumerable<User>> GetAll();
         Task<string> GetUser(string userName, string password);
         Task<bool> Register(User user);
+
     }
 }
