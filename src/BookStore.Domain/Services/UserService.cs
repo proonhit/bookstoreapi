@@ -1,5 +1,4 @@
-﻿using BookStore.Domain.Helper;
-using BookStore.Domain.Interfaces;
+﻿using BookStore.Domain.Interfaces;
 using BookStore.Domain.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -50,26 +49,6 @@ namespace BookStore.Domain.Services
             var token = new JwtSecurityToken(_configuration["Jwt:Issuer"], _configuration["Jwt:Audience"], claims, expires: DateTime.UtcNow.AddDays(1), signingCredentials: signIn);
             var tokenReturn = new JwtSecurityTokenHandler().WriteToken(token);
             return tokenReturn;
-        }
-
-        public async Task<bool> Register(User user)
-        {
-            if(user is null)
-            {
-                return false;
-            }
-            var newUser = new User{ 
-                Username = user.Username,
-                Password = HashHelper.SHA256(user.Password),
-                Email = user.Email,
-                Phone = user.Phone,
-                DateOfBirth = user.DateOfBirth,
-                IsActive = true,
-                Level = 0
-            };
-            await _userRepository.Add(newUser);
-            await _userRepository.SaveChanges();
-            return true;
         }
 
     }
