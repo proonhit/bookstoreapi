@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using BookStore.API.Dtos;
-using BookStore.API.Dtos.User;
 using BookStore.Domain.Interfaces;
 using BookStore.Domain.Models;
 using Microsoft.AspNetCore.Http;
@@ -27,6 +26,7 @@ namespace BookStore.API.Controllers
             _configuration = configuration;
         }
 
+<<<<<<< HEAD
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -55,6 +55,8 @@ namespace BookStore.API.Controllers
             return Ok(result);
         }
 
+=======
+>>>>>>> parent of f1661e9 (login)
         /// <summary>
         /// Get all user
         /// </summary>
